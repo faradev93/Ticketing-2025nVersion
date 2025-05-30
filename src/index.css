@@ -1,0 +1,111 @@
+@import "tailwindcss";
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(2px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+@font-face {
+  font-family: Bebas;
+  src: url("./font/BebasNeue-Regular.ttf");
+}
+
+@font-face {
+  font-family: playWrite;
+  src: url("./font/PlaywriteUSModern-Regular.ttf");
+}
+
+@font-face {
+  font-family: DgOcean-1;
+  src: url("https://fonts.gstatic.com/s/epilogue/v17/O4ZRFGj5hxF0EhjimlIksgg.woff2");
+}
+
+@font-face {
+  font-family: DgOcean-2;
+  src: url("https://fonts.gstatic.com/s/jetbrainsmono/v20/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2");
+}
+
+@font-face {
+  font-family: DgOcean-3;
+  src: url("https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZ9hiA.woff2");
+}
+
+/*  */
+
+@layer base {
+  body {
+    background-color: #6b7280;
+  }
+}
+
+@layer components {
+  .--bg-2 {
+    @apply bg-[url("https://ui-cdn.digitalocean.com/federation/registration-next/assets/static/background.0b475b0176902d502b82e5b0f20159b7a327fc8a363f2fd3615c3fe7d91095e9.png")] bg-cover bg-repeat-x;
+  }
+
+  .login--main {
+    @apply flex flex-col gap-8 justify-center items-center min-h-screen;
+  }
+
+  .login {
+    @apply border-2 p-2 flex flex-col font-[playWrite];
+  }
+  .my-special-font {
+    @apply font-[DgOcean-1] text-xl;
+  }
+
+  .my-special-font-2 {
+    @apply font-[DgOcean-1] text-4xl font-extrabold;
+  }
+  .my-special-font-loginCustom {
+    @apply font-[DgOcean-1] text-3xl font-extrabold;
+  }
+
+  .my-special-font-3 {
+    @apply font-[DgOcean-1] text-4xl;
+  }
+
+  .login--borders {
+    @apply transition-all duration-300 p-4 select-none my-5 flex flex-col gap-4 bg-white rounded-2xl;
+  }
+
+  .login--input {
+    @apply bg-transparent p-3 border-2 border-gray-400 rounded-2xl flex justify-center items-center;
+  }
+
+  .input--error {
+    @apply bg-transparent p-3 border-3 border-red-500 rounded-2xl flex justify-center items-center;
+  }
+
+  .register--button {
+    @apply bg-green-900 p-4 mt-3 text-white font-bold rounded-xl hover:bg-green-800/90 hover:transition-all duration-300;
+  }
+
+  .login--button {
+    @apply bg-blue-900 p-4 mt-3 text-white font-bold rounded-xl hover:bg-blue-800/90 hover:transition-all duration-300;
+  }
+
+  .--text-style {
+    @apply text-[#0069ff] font-[DgOcean-2] flex;
+  }
+
+  .link--style {
+    @apply font-[DgOcean-2] font-bold text-sky-800 hover:border-b-4 border-yellow-200 hover:transform-border duration-100;
+  }
+}
+
+@layer utilities {
+  .myFont {
+    @apply font-[playWrite];
+  }
+  .animate-fade-in {
+    animation: fade-in 700ms ease-out forwards;
+  }
+}
