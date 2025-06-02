@@ -1,6 +1,8 @@
-import { usePrivateRoute } from "../ContextProvider/PrivateRouteProvider";
+import { useUserInfoProvider } from "../ContextProvider/UserInfoProvider";
 
 export default function Tickets({ childern }) {
-  const { username, setUserName } = usePrivateRoute();
-  return <div className="--ticket--main-page">ss</div>;
+  const { balance } = useUserInfoProvider();
+  console.log(balance);
+
+  return <div className="--ticket--main-page">comp Ticketa</div>;
 }

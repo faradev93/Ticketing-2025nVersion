@@ -1,10 +1,26 @@
-import { NavLink } from "react-router";
-
+import { NavLink, useNavigate } from "react-router";
+import { usePrivateRoute } from "../ContextProvider/PrivateRouteProvider";
+import toast from "react-hot-toast";
+import { UserInfoProvider } from "../ContextProvider/UserInfoProvider";
 
 const Header = ({ children }) => {
+  const { email } = usePrivateRoute();
+  const { balance, setBalance, reservedTickets, setReservedTickets } =
+    UserInfoProvider();
+
+  const navigate = useNavigate();
+
+  
+  const SignoutBTN = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("User_Email");
+    navigate("/login");
+    toast.success("Successfully logged out.");
+  };
+
   return (
     <div>
-      <div className="--header--style">
+      <div className="--header--style p-2">
         <div className="--header-part--1 font-[DgOcean-2]">
           <ul className="--header-part--1">
             <li>
@@ -12,29 +28,30 @@ const Header = ({ children }) => {
                 Tickets
               </NavLink>
             </li>
-            <li>
+            <li className="hover:text-red-600">
               <NavLink to={"/tickets/reserved"} end>
                 My Tickets
               </NavLink>
             </li>
-            <li>Faramarz Test</li>
           </ul>
         </div>
 
-        <div className="flex gap-8 items-center">
-          <li className="flex flex-col gap-4">
-            <div>
-              Welcome
-              <span className="font-light p-2 rounded-xs border-l-2 m-2 hover:border-r-2 duration-50 transition-all hover:border-b-2 duration-50"></span>
-            </div>
+        <div className="flex gap-8 items-center font-[DgOcean-2] select-none">
+          <ul className="flex gap-8 items-center font-[DgOcean-2] select-none">
+            <li className="flex flex-col gap-4">
+              <div>
+                ✔ {email}
+                <span className="font-light p-2 rounded-xs m-2"></span>
+              </div>
 
-            <span>Balance:$</span>
-          </li>
-          <li>
-            <button className="border-2 border-sky-400/30 p-2 hover:bg-red-400/50 transition-colors duration-300 origin-center">
-              Sign Out
-            </button>
-          </li>
+              <span>Balance:$</span>
+            </li>
+            <li>
+              <button onClick={SignoutBTN} className="--signout-btn">
+                Sign Out
+              </button>
+            </li>
+          </ul>
         </div>
       </div>
     </div>

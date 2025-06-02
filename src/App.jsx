@@ -8,6 +8,7 @@ import Tickets from "./components/Tickets";
 import { AuthProvider } from "./ContextProvider/AuthProvider";
 import { PrivateRouteProvider } from "./ContextProvider/PrivateRouteProvider";
 import Header from "./components/Header";
+import { UserInfoProvider } from "./ContextProvider/UserInfoProvider";
 
 const App = () => {
   return (
@@ -15,31 +16,33 @@ const App = () => {
       <div>
         {/* Main */}
         <AuthProvider>
-          <RegisterProvider>
-            <LoginProvider>
-              <BrowserRouter>
-                <Toaster
-                  containerClassName="font-[bebas] text-xl"
-                  position="bottom-right"
-                />
-                <Routes>
-                  <Route path={"/"} element={<Login />}></Route>
-                  <Route path={"/login"} element={<Login />}></Route>
-                  <Route path={"/register"} element={<Register />}></Route>
+          <UserInfoProvider>
+            <RegisterProvider>
+              <LoginProvider>
+                <BrowserRouter>
+                  <Toaster
+                    containerClassName="font-[bebas] text-xl"
+                    position="bottom-right"
+                  />
+                  <Routes>
+                    <Route path={"/"} element={<Login />}></Route>
+                    <Route path={"/login"} element={<Login />}></Route>
+                    <Route path={"/register"} element={<Register />}></Route>
 
-                  <Route
-                    path={"/tickets"}
-                    element={
-                      <PrivateRouteProvider>
-                        <Header children={"ey"}/>
-                        <Tickets />
-                      </PrivateRouteProvider>
-                    }
-                  ></Route>
-                </Routes>
-              </BrowserRouter>
-            </LoginProvider>
-          </RegisterProvider>
+                    <Route
+                      path="/tickets"
+                      element={
+                        <PrivateRouteProvider>
+                          <Header />
+                          <Tickets />
+                        </PrivateRouteProvider>
+                      }
+                    ></Route>
+                  </Routes>
+                </BrowserRouter>
+              </LoginProvider>
+            </RegisterProvider>
+          </UserInfoProvider>
         </AuthProvider>
       </div>
     </div>
