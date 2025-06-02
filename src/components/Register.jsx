@@ -42,7 +42,7 @@ const Register = () => {
 
         console.log(data.message);
         localStorage.setItem("token", data.token);
-        localStorage.setItem("user_fullName", form.fullName);
+        localStorage.setItem("user_email", form.username);
         navigate("/tickets");
       } else if (response.status === 400) {
         toast.error("User already exists", { duration: 3000 });

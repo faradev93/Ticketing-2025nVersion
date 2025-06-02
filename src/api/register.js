@@ -11,4 +11,3 @@ export function register(username, fullName, password) {
   //   .then((data) => data.json());
 }
 
-

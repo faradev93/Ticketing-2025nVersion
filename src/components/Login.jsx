@@ -37,12 +37,12 @@ export default function Login() {
         const data = await response.json();
         localStorage.setItem("token", data.token);
         localStorage.setItem("User_Email", logForm.username);
-        toast.success("Welcome ❤");
+        toast.success(`Welcome ${localStorage.getItem("User_Email")}`);
         navigate("/tickets");
       }
       if (response.status === 401) {
         const data = await response.json();
-        toast.error(`SoRRy Beacuse ${data.message}`,{duration:4000})
+        toast.error(`SoRRy Beacuse ${data.message}`, { duration: 4000 });
       }
     } catch (err) {
       console.log("Data Can't Load Beacuse::::" + err);

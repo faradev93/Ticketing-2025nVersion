@@ -6,6 +6,8 @@ import Register from "./components/Register";
 import { RegisterProvider } from "./ContextProvider/RegisterProvider";
 import Tickets from "./components/Tickets";
 import { AuthProvider } from "./ContextProvider/AuthProvider";
+import { PrivateRouteProvider } from "./ContextProvider/PrivateRouteProvider";
+import Header from "./components/Header";
 
 const App = () => {
   return (
@@ -25,7 +27,15 @@ const App = () => {
                   <Route path={"/login"} element={<Login />}></Route>
                   <Route path={"/register"} element={<Register />}></Route>
 
-                  <Route path={"/tickets"} element={<Tickets />}></Route>
+                  <Route
+                    path={"/tickets"}
+                    element={
+                      <PrivateRouteProvider>
+                        <Header children={"ey"}/>
+                        <Tickets />
+                      </PrivateRouteProvider>
+                    }
+                  ></Route>
                 </Routes>
               </BrowserRouter>
             </LoginProvider>

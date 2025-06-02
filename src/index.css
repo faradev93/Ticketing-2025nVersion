@@ -99,6 +99,24 @@
   .link--style {
     @apply font-[DgOcean-2] font-bold text-sky-800 hover:border-b-4 border-yellow-200 hover:transform-border duration-100;
   }
+
+  /*Header Style  */
+
+  .--header--style {
+    @apply bg-white flex justify-between border-2 border-r-amber-50 mb-2 gap-4;
+  }
+
+  .--header-part--1 {
+    @apply flex gap-8 items-center justify-center;
+  }
+
+  .--signout-btn {
+    @apply bg-gray-700 p-4 mt-3 text-white font-bold rounded-xl hover:bg-red-800/90 hover:transition-all duration-300;
+  }
+  /* Tickets Style */
+  .--ticket--main-page {
+    @apply bg-green-300;
+  }
 }
 
 @layer utilities {
