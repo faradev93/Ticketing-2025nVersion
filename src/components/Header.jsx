@@ -1,16 +1,17 @@
 import { NavLink, useNavigate } from "react-router";
 import { usePrivateRoute } from "../ContextProvider/PrivateRouteProvider";
 import toast from "react-hot-toast";
-import { UserInfoProvider } from "../ContextProvider/UserInfoProvider";
+import {
+  UserInfoProvider,
+  useUserInfoProvider,
+} from "../ContextProvider/UserInfoProvider";
 
 const Header = ({ children }) => {
   const { email } = usePrivateRoute();
   const { balance, setBalance, reservedTickets, setReservedTickets } =
-    UserInfoProvider();
-
+    useUserInfoProvider();
   const navigate = useNavigate();
 
-  
   const SignoutBTN = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("User_Email");
