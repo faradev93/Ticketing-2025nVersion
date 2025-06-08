@@ -9,6 +9,7 @@ import { AuthProvider } from "./ContextProvider/AuthProvider";
 import { PrivateRouteProvider } from "./ContextProvider/PrivateRouteProvider";
 import Header from "./components/Header";
 import { UserInfoProvider } from "./ContextProvider/UserInfoProvider";
+import TicketItemDescription from "./components/TicketItemDescription";
 
 const App = () => {
   return (
@@ -28,16 +29,7 @@ const App = () => {
                     <Route path={"/"} element={<Login />}></Route>
                     <Route path={"/login"} element={<Login />}></Route>
                     <Route path={"/register"} element={<Register />}></Route>
-
-                    <Route
-                      path="/tickets"
-                      element={
-                        <PrivateRouteProvider>
-                          <Header />
-                          <Tickets />
-                        </PrivateRouteProvider>
-                      }
-                    ></Route>
+                    
                   </Routes>
                 </BrowserRouter>
               </LoginProvider>

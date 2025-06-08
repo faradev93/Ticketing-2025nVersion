@@ -130,7 +130,7 @@
   }
 
   .--card--main--detail {
-    @apply select-none h-[330px] w-[300px] bg-white flex flex-col gap-4 p-4 m-2 rounded-xl shadow-lg shadow-black/50 hover:border-[0.1rem] border-gray-500/30 font-[DgOcean-1] hover:shadow-xs hover:transition-all duration-100;
+    @apply select-none h-[330px] w-[300px] bg-white flex flex-col gap-6 p-4 m-2 rounded-xl shadow-lg shadow-black/50 hover:border-[0.1rem] border-gray-500/30 font-[DgOcean-1] hover:shadow-xs hover:transition-all duration-100;
   }
 
   .--border-bottom-intexted {

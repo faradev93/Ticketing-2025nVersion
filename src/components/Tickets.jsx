@@ -32,7 +32,7 @@ export default function Tickets({ childern }) {
       ) : (
         <Display_Flex>
           {data.map((item) => {
-            return <TicketDetails tikcet={item} key={item.id} />;
+            return <TicketDetails ticket={item} key={item.id} />;
           })}
         </Display_Flex>
       )}

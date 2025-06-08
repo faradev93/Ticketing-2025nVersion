@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from "react-router";
+import { NavLink, Outlet, useNavigate } from "react-router";
 import { usePrivateRoute } from "../ContextProvider/PrivateRouteProvider";
 import toast from "react-hot-toast";
 import {
@@ -55,6 +55,7 @@ const Header = ({ children }) => {
           </ul>
         </div>
       </div>
+      <Outlet/>
     </div>
   );
 };
