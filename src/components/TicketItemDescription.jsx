@@ -1,4 +1,103 @@
-const TicketItemDescription = ({ description }) => {
-  return <div className="">{description}ss</div>;
+import { useEffect, useState } from "react";
+import { useParams } from "react-router";
+import Loading from "../MsgComponents/Loading/Loading";
+import Display_Flex from "./Display_Flex";
+import FormatDate from "./FormatDate";
+import TextLorem from "./TextLorem";
+
+const TicketItemDescription = () => {
+  const { id } = useParams();
+  const [loading, setLoading] = useState(false);
+  const [ticket, setTicket] = useState(null);
+
+  const fetchTicket = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch(`http://test.joo.nz/ticket/${id}`, {
+        method: "GET",
+      });
+      const data = await response.json();
+      setTicket(data);
+      setLoading(false);
+      console.log("ID Fetched", data);
+    } catch (err) {
+      console.log(`Error When Handle This ID :${id} ${err}`);
+      setLoading(false);
+    }
+  };
+
+  const handleReserve = async () => {
+    const token = localStorage.getItem("token");
+
+    try {
+      const response = await fetch(`http://test.joo.nz/ticket/${id}/reserve`, {
+        method: "POST", headers:{au}
+      },);
+      console.log(response);
+      const data = await response.json();
+      console.log(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  handleReserve();
+
+  useEffect(() => {
+    fetchTicket();
+  }, [id]);
+
+  return (
+    <div className="animate-fade-in--Desc">
+      {loading ? (
+        <Loading />
+      ) : ticket ? (
+        <div className="--base--description-font ">
+          <div className="--card--description--detail--Main">
+            <div className="--card--description--detail">
+              <h1 className="text-4xl text-shadow-lg text-gray-800 flex gap-8">
+                | {ticket.description}
+                <span className="border-y-2">{ticket.id}</span>{" "}
+              </h1>
+              <div className="--lorem-text-styles">
+                <TextLorem />
+              </div>
+              <p>
+                Added Date:
+                <span>
+                  <FormatDate date={ticket.addedDate} />
+                </span>
+              </p>
+              <p>
+                Price: <span className="border-b-2">{ticket.price}</span>$
+              </p>
+              <p>
+                Availabe Seat: <span>{ticket.seats} Person</span>
+              </p>
+              <button className="--reserve--button--description">
+                Reserve !
+              </button>
+            </div>
+            <div className="flex justify-center items-center text-6xl">||</div>
+            <div className="--card-description-reserved flex flex-col">
+              Already Reserved By:
+              {ticket?.reservedBy.map((peoples, index) => {
+                return (
+                  <li
+                    className="list-none text-sky-800/80 select-text"
+                    key={index}
+                  >
+                    {peoples}
+                  </li>
+                );
+              })}
+            </div>
+            {/* <div>salam test2</div> */}
+          </div>
+        </div>
+      ) : (
+        <p>Internet OR Server Lost</p>
+      )}
+    </div>
+  );
 };
 export default TicketItemDescription;

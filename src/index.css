@@ -145,15 +145,46 @@
     @apply bg-transparent p-3 mt-3 font-medium rounded-xl border-1
     hover:bg-gray-400/50 hover:text-black hover:border-black transition-colors;
   }
+
+  /*------------ Ticket Description------------ */
+
+  .--card--description--detail--Main {
+    @apply m-2 p-8 rounded-xl select-none w-full h-full bg-white flex flex-wrap;
+  }
+
+  .--card--description--detail {
+    @apply flex flex-col gap-6 p-8;
+  }
+
+  .--card-description-reserved {
+    @apply m-2 select-none w-fit h-full bg-white flex flex-wrap gap-6 p-8;
+  }
+
+  .--base--description-font {
+    @apply font-[DgOcean-2] font-bold;
+  }
+
+  .--lorem-text-styles {
+    @apply w-[450px] h-fit flex justify-center items-center;
+  }
+
+  .--reserve--button--description {
+    @apply bg-transparent p-3 mt-3 font-medium rounded-xl border-1 w-xs
+    hover:bg-green-400/50 hover:text-black/60 hover:border-black hover:ring-1 hover:ring-offset-black transition-colors duration-500;
+  }
 }
 
 @layer utilities {
   .myFont {
-    @apply font-[playWrite];
+    @apply font-[playWrite] font-bold;
   }
 
   .animate-fade-in {
     animation: fade-in 700ms ease-out forwards;
+  }
+
+  .animate-fade-in--Desc {
+    animation: fade-in 800ms ease-in forwards;
   }
 }
 

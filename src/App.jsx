@@ -1,14 +1,14 @@
 import { BrowserRouter, Route, Routes } from "react-router";
 import { LoginProvider } from "./ContextProvider/LoginProvider";
+import { RegisterProvider } from "./ContextProvider/RegisterProvider";
+import { UserBalanceProvider } from "./ContextProvider/UserBalanceProvider";
 import { Toaster } from "react-hot-toast";
 import Login from "./components/Login";
 import Register from "./components/Register";
-import { RegisterProvider } from "./ContextProvider/RegisterProvider";
 import Tickets from "./components/Tickets";
 import { AuthProvider } from "./ContextProvider/AuthProvider";
 import { PrivateRouteProvider } from "./ContextProvider/PrivateRouteProvider";
-import Header from "./components/Header";
-import { UserInfoProvider } from "./ContextProvider/UserInfoProvider";
+import ProtectedLayout from "./components/ProtectedLayout";
 import TicketItemDescription from "./components/TicketItemDescription";
 
 const App = () => {
@@ -17,7 +17,7 @@ const App = () => {
       <div>
         {/* Main */}
         <AuthProvider>
-          <UserInfoProvider>
+          <UserBalanceProvider>
             <RegisterProvider>
               <LoginProvider>
                 <BrowserRouter>
@@ -26,15 +26,25 @@ const App = () => {
                     position="bottom-right"
                   />
                   <Routes>
+                    {/* Public Route */}
                     <Route path={"/"} element={<Login />}></Route>
                     <Route path={"/login"} element={<Login />}></Route>
                     <Route path={"/register"} element={<Register />}></Route>
-                    
+
+                    {/* Protected Route */}
+                    <Route element={<ProtectedLayout />}>
+                      <Route path={"/tickets"} element={<Tickets />}></Route>
+                      <Route
+                        path={"/tickets/:id"}
+                        element={<TicketItemDescription />}
+                      ></Route>
+                      <Route path="/tickets/reserved" element={<p>ای کصکش</p>}></Route>
+                    </Route>
                   </Routes>
                 </BrowserRouter>
               </LoginProvider>
             </RegisterProvider>
-          </UserInfoProvider>
+          </UserBalanceProvider>
         </AuthProvider>
       </div>
     </div>

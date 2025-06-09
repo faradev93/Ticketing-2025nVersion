@@ -10,9 +10,20 @@ export const usePrivateRoute = () => {
 export const PrivateRouteProvider = ({ children }) => {
   //
   const navigate = useNavigate();
-  const token = localStorage.getItem("token");
   const defineUsername = localStorage.getItem("User_Email");
   const [email, showEmail] = useState(defineUsername);
+  const [token, setToken] = useState(localStorage.getItem("token"));
+
+  useEffect(() => {
+    const TimeOut = setTimeout(() => {
+      localStorage.removeItem("token");
+      setToken(null);
+      navigate("/login");
+    }, 30 * 60 *3000);
+    return () => {
+      clearTimeout(TimeOut);
+    };
+  }, [token]);
 
   if (!token) return <Navigate to={"/login"} replace></Navigate>;
   //
