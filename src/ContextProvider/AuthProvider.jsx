@@ -7,11 +7,9 @@ export const useAuth = () => {
 };
 
 export const AuthProvider = ({ children }) => {
-  const [username, setUserName] = useState(
-    localStorage.getItem("user_fullName")
-  );
+  const [username, setUsername] = useState(localStorage.getItem("user_email"));
   return (
-    <AuthContext.Provider value={{ username, setUserName }}>
+    <AuthContext.Provider value={{ username, setUsername }}>
       {children}
     </AuthContext.Provider>
   );

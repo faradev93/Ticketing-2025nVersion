@@ -7,11 +7,12 @@ export const useUserBalance = () => {
 };
 
 export const UserBalanceProvider = ({ children }) => {
+  const token = localStorage.getItem("token");
   const [balance, setBalance] = useState(0);
   const [reservedTickets, setReservedTickets] = useState([]);
   return (
     <BalanceProvider.Provider
-      value={{balance, setBalance, reservedTickets, setReservedTickets}}
+      value={{ balance, setBalance, reservedTickets, setReservedTickets,token }}
     >
       {children}
     </BalanceProvider.Provider>

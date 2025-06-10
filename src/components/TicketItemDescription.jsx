@@ -4,11 +4,14 @@ import Loading from "../MsgComponents/Loading/Loading";
 import Display_Flex from "./Display_Flex";
 import FormatDate from "./FormatDate";
 import TextLorem from "./TextLorem";
+import toast from "react-hot-toast";
+import { useAuth } from "../ContextProvider/AuthProvider";
 
-const TicketItemDescription = () => {
+const TicketItemDescription = ({ onTicketReserved }) => {
   const { id } = useParams();
   const [loading, setLoading] = useState(false);
   const [ticket, setTicket] = useState(null);
+  const { username } = useAuth();
 
   const fetchTicket = async () => {
     try {
@@ -28,19 +31,24 @@ const TicketItemDescription = () => {
 
   const handleReserve = async () => {
     const token = localStorage.getItem("token");
-
-    try {
-      const response = await fetch(`http://test.joo.nz/ticket/${id}/reserve`, {
-        method: "POST", headers:{au}
-      },);
-      console.log(response);
-      const data = await response.json();
-      console.log(data);
-    } catch (err) {
-      console.log(err);
+    const response = await fetch(`http://test.joo.nz/ticket/${id}/reserve`, {
+      method: "POST",
+      headers: { authorization: `Bearer ${token}` },
+    });
+    const data = await response.json();
+    if (response.status === 200) {
+      console.log(data.message);
+      toast.success("Reserved");
+    } else {
+      console.log(data.message);
+      toast.error(`Error / ${data.message} $`, { duration: 5000 });
     }
+
+    onTicketReserved();
+    fetchTicket();
   };
-  handleReserve();
+
+  const alreadyReserve = ticket?.reservedBy?.includes(username);
 
   useEffect(() => {
     fetchTicket();
@@ -73,21 +81,28 @@ const TicketItemDescription = () => {
               <p>
                 Availabe Seat: <span>{ticket.seats} Person</span>
               </p>
-              <button className="--reserve--button--description">
-                Reserve !
-              </button>
+              {!alreadyReserve && (
+                <button
+                  className="--reserve--button--description"
+                  onClick={handleReserve}
+                >
+                  Reserve !
+                </button>
+              )}
             </div>
             <div className="flex justify-center items-center text-6xl">||</div>
-            <div className="--card-description-reserved flex flex-col">
+            <div className="--card-description-reserved flex flex-col items-baseline">
               Already Reserved By:
               {ticket?.reservedBy.map((peoples, index) => {
                 return (
-                  <li
-                    className="list-none text-sky-800/80 select-text"
+                  <ul
                     key={index}
+                    className="list-decimal text-sky-800/80 select-text"
                   >
-                    {peoples}
-                  </li>
+                    <li>
+                      {peoples.charAt(0).toUpperCase() + peoples.slice(1)}
+                    </li>
+                  </ul>
                 );
               })}
             </div>

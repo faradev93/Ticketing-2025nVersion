@@ -35,8 +35,8 @@ export default function Login() {
       if (response.status === 200) {
         const data = await response.json();
         localStorage.setItem("token", data.token);
-        localStorage.setItem("User_Email", logForm.username);
-        toast.success(`Welcome ${localStorage.getItem("User_Email")}`);
+        localStorage.setItem("user_email", logForm.username);
+        toast.success(`Welcome ${localStorage.getItem("user_email")}`);
         navigate("/tickets");
       }
       if (response.status === 401) {

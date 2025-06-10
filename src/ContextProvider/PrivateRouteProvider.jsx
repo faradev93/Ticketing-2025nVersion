@@ -10,7 +10,7 @@ export const usePrivateRoute = () => {
 export const PrivateRouteProvider = ({ children }) => {
   //
   const navigate = useNavigate();
-  const defineUsername = localStorage.getItem("User_Email");
+  const defineUsername = localStorage.getItem("user_email");
   const [email, showEmail] = useState(defineUsername);
   const [token, setToken] = useState(localStorage.getItem("token"));
 

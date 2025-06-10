@@ -16,7 +16,7 @@ const TextLorem = ({ desc }) => {
       {show ? (
         desc
       ) : (
-        <div className="flex gap-5 "> ≡
+        <div className="flex gap-5 overflow-hidden"> ≡
           <p>
             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Harum
             exercitationem, rerum natus, odio atque sit quas doloribus excepturi
