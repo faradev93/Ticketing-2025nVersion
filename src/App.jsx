@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router";
 import { LoginProvider } from "./ContextProvider/LoginProvider";
 import { RegisterProvider } from "./ContextProvider/RegisterProvider";
 import { Toaster } from "react-hot-toast";
+import { getData } from "./api/restful";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Tickets from "./components/Tickets";
@@ -21,17 +22,8 @@ const App = () => {
   const [data, setData] = useState([]);
 
   const getTicketsData = async () => {
-    try {
-      const response = await fetch("http://test.joo.nz/tickets", {
-        method: "GET",
-      });
-      if (response.ok) {
-        const json = await response.json();
-        setData(json);
-      }
-    } catch (err) {
-      console.log(`Error when fetch getdata:♦ ${err}`);
-    }
+    const data = await getData();
+    if (data) setData(data);
   };
 
   const checkBalance = async () => {
@@ -74,6 +66,7 @@ const App = () => {
     getTicketsData();
     checkBalance();
     fetchTickets();
+    console.log(data);
   }, [username]);
   //
   return (
