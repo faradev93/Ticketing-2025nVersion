@@ -10,6 +10,7 @@ import ProtectedLayout from "./components/ProtectedLayout";
 import TicketItemDescription from "./components/TicketItemDescription";
 import { useUserBalance } from "./ContextProvider/UserBalanceProvider";
 import { useAuth } from "./ContextProvider/AuthProvider";
+import ReservedTickets from "./components/ReservedTickets";
 
 const App = () => {
   //
@@ -19,15 +20,17 @@ const App = () => {
 
   const [data, setData] = useState([]);
 
-  const fetchTickets = async () => {
+  const getTicketsData = async () => {
     try {
       const response = await fetch("http://test.joo.nz/tickets", {
         method: "GET",
       });
-      const json = await response.json();
-      setData(json);
+      if (response.ok) {
+        const json = await response.json();
+        setData(json);
+      }
     } catch (err) {
-      console.log("NOT FETCH fetchTicket() : ", err);
+      console.log(`Error when fetch getdata:♦ ${err}`);
     }
   };
 
@@ -47,12 +50,28 @@ const App = () => {
     }
   };
 
+  const fetchTickets = async () => {
+    try {
+      const response = await fetch("http://test.joo.nz/tickets/my-tickets", {
+        method: "GET",
+        headers: { authorization: `Bearer ${token}` },
+      });
+      if (response.status === 200) {
+        const data = await response.json();
+        setReservedTickets(data);
+      }
+    } catch (err) {
+      console.log(`not load ReservedTickets:  ${err}`);
+    }
+  };
+
   const handleTicketReserved = () => {
     fetchTickets();
     checkBalance();
   };
 
   useEffect(() => {
+    getTicketsData();
     checkBalance();
     fetchTickets();
   }, [username]);
@@ -87,7 +106,9 @@ const App = () => {
                   ></Route>
                   <Route
                     path="/tickets/reserved"
-                    element={<p>ای کصکش</p>}
+                    element={
+                      <ReservedTickets reservedTickets={reservedTickets} />
+                    }
                   ></Route>
                 </Route>
               </Routes>

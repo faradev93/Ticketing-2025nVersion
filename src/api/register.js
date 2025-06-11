@@ -10,3 +10,10 @@ export function register(username, fullName, password) {
   });
   //   .then((data) => data.json());
 }
+
+export function SignoutBTN() {
+  localStorage.removeItem("token");
+  localStorage.removeItem("user_email");
+  navigate("/login");
+  toast.success("Successfully logged out.");
+}

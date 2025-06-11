@@ -1,4 +1,4 @@
-import { NavLink } from "react-router";
+import { NavLink, useLocation } from "react-router";
 import { useState } from "react";
 import { useAuth } from "../ContextProvider/AuthProvider";
 import FormatDate from "./FormatDate";
@@ -12,6 +12,7 @@ const TicketDetails = ({ ticket }) => {
     : "text-red-400 --border-bottom-intexted";
 
   const [loading, setLoading] = useState(false);
+  const location = useLocation();
   return (
     <div>
       {loading ? (
@@ -43,17 +44,18 @@ const TicketDetails = ({ ticket }) => {
             Availbale Seats:{" "}
             <span className={aChange}>{ticket.seats - ticket.reservedBy}</span>
           </p>
-
-          <div className="--flexy">
-            <NavLink
-              to={`/tickets/${ticket.id}`}
-              // disabled={availableSeat === 0}
-              // onClick={"ss"}
-              className="--reserve--button"
-            >
-              {availableSeat === 0 ? "Full" : "Reserve !"}
-            </NavLink>
-          </div>
+          {location.pathname !== "/tickets/reserved" && (
+            <div className="--flexy">
+              <NavLink
+                to={`/tickets/${ticket.id}`}
+                // disabled={availableSeat === 0}
+                // onClick={"ss"}
+                className="--reserve--button"
+              >
+                {availableSeat === 0 ? "Full" : "Reserve !"}
+              </NavLink>
+            </div>
+          )}
         </div>
       )}
     </div>

@@ -50,10 +50,28 @@ const Header = ({ children }) => {
         <div className="--header-part--1 font-[DgOcean-2]">
           <ul className="--header-part--1">
             <li>
-              <Link to={"/tickets"}>Tickets</Link>
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? "--tickets-links-style" : ""
+                }
+                to={"/tickets"} end
+              >
+                Tickets
+              </NavLink>
             </li>
-            <li className="hover:text-red-600">
-              <Link to={"/tickets/reserved"}>My Tickets</Link>
+            <li>
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? "--tickets-links-style" : ""
+                }
+                to={"/tickets/reserved"} end
+              >
+                My Tickets (
+                <span className="border-b-2 border-dashed">
+                  {reservedTickets.length}
+                </span>
+                )
+              </NavLink>
             </li>
           </ul>
         </div>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import TicketDetails from "./TicketItem";
+import TicketDetails from "./TicketDetails";
 import Display_Flex from "./Display_Flex";
 import Loading from "../MsgComponents/Loading/Loading";
 

@@ -41,7 +41,7 @@ const TicketItemDescription = ({ onTicketReserved }) => {
       toast.success("Reserved");
     } else {
       console.log(data.message);
-      toast.error(`Error / ${data.message} $`, { duration: 5000 });
+      toast.error(`Error / ${data.message} `, { duration: 5000 });
     }
 
     onTicketReserved();
