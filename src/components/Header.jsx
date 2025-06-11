@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import { useUserBalance } from "../ContextProvider/UserBalanceProvider";
 import BalanceLoading from "../MsgComponents/BalanceLoading";
 import { useState } from "react";
+import { signOutUser } from "../api/auth";
 
 const Header = ({ children }) => {
   const { email } = usePrivateRoute();
@@ -13,10 +14,7 @@ const Header = ({ children }) => {
   const [Loading, showLoading] = useState(true);
 
   const SignoutBTN = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user_email");
-    navigate("/login");
-    toast.success("Successfully logged out.");
+    signOutUser(navigate);
   };
 
   const showNameHeader = () => {
@@ -54,7 +52,8 @@ const Header = ({ children }) => {
                 className={({ isActive }) =>
                   isActive ? "--tickets-links-style" : ""
                 }
-                to={"/tickets"} end
+                to={"/tickets"}
+                end
               >
                 Tickets
               </NavLink>
@@ -64,7 +63,8 @@ const Header = ({ children }) => {
                 className={({ isActive }) =>
                   isActive ? "--tickets-links-style" : ""
                 }
-                to={"/tickets/reserved"} end
+                to={"/tickets/reserved"}
+                end
               >
                 My Tickets (
                 <span className="border-b-2 border-dashed">
