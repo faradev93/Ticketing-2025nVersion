@@ -4,10 +4,12 @@ import { useAuth } from "../ContextProvider/AuthProvider";
 import { useState } from "react";
 import ErrorMsg from "../MsgComponents/ErrorMsg/ErrorMsg";
 import toast from "react-hot-toast";
+import { login } from "../api/login";
 
 export default function Login() {
   const { logForm, setLogForm } = useLoginForm();
   const [error, ShowError] = useState(false);
+  
 
   const navigate = useNavigate();
 
@@ -24,28 +26,36 @@ export default function Login() {
     }
 
     try {
-      const response = await fetch("http://test.joo.nz/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          username: logForm.username,
-          password: logForm.password,
-        }),
-      });
-      if (response.status === 200) {
-        const data = await response.json();
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("user_email", logForm.username);
-        toast.success(`Welcome ${localStorage.getItem("user_email")}`);
-        navigate("/tickets");
-      }
-      if (response.status === 401) {
-        const data = await response.json();
-        toast.error(`SoRRy Beacuse ${data.message}`, { duration: 4000 });
-      }
+      const data = await login(logForm.username, logForm.password);
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user_email", logForm.username);
+      toast.success(`Welcome ${localStorage.getItem("user_email")}`);
+      navigate("/tickets");
     } catch (err) {
-      console.log("Data Can't Load Beacuse::::" + err);
+      toast.error(err.message || "Login failed");
     }
+
+    // const response = await fetch("http://test.joo.nz/login", {
+    //   method: "POST",
+    //   headers: { "Content-Type": "application/json" },
+    //   body: JSON.stringify({
+    //     username: logForm.username,
+    //     password: logForm.password,
+    //   }),
+    // });
+
+    // if (response.status === 200) {
+    //   const data = await response.json();
+    //   localStorage.setItem("token", data.token);
+    //   localStorage.setItem("user_email", logForm.username);
+    //   toast.success(`Welcome ${localStorage.getItem("user_email")}`);
+    //   navigate("/tickets");
+    // }
+    // if (response.status === 401) {
+    //   const data = await response.json();
+    //   toast.error(`SoRRy Beacuse ${data.message}`, { duration: 4000 });
+    // } catch (err) {
+    // console.log("Data Can't Load Beacuse::::" + err);
   };
 
   return (
@@ -93,7 +103,7 @@ export default function Login() {
               id="password"
             ></input>
 
-            <button type="submit" className="login--button">
+            <button onClick={SignIn} type="submit" className="login--button">
               Login{" "}
             </button>
           </div>
