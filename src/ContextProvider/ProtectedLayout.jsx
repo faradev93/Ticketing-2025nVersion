@@ -1,7 +1,7 @@
 import { Outlet } from "react-router";
 import { PrivateRouteProvider } from "../ContextProvider/PrivateRouteProvider";
-import Header from "./Header";
 import { useUserBalance } from "../ContextProvider/UserBalanceProvider";
+import Header from "../components/Header";
 
 const ProtectedLayout = () => {
   const { balance, setBalance, reservedTickets, setReservedTickets } =

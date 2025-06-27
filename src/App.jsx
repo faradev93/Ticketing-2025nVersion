@@ -6,7 +6,7 @@ import { Toaster } from "react-hot-toast";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Tickets from "./components/Tickets";
-import ProtectedLayout from "./components/ProtectedLayout";
+import ProtectedLayout from "./ContextProvider/ProtectedLayout";
 import TicketItemDescription from "./components/TicketItemDescription";
 import { useUserBalance } from "./ContextProvider/UserBalanceProvider";
 import { useAuth } from "./ContextProvider/AuthProvider";

@@ -1,17 +1,16 @@
 import { createContext, useContext, useState } from "react";
 
-const offlinecontext = createContext();
+const offlineContext = createContext();
 
 export const useOfflineMode = () => {
-  useContext(offlinecontext);
+  return useContext(offlineContext);
 };
 
 export const OfflineModeProvider = ({ children }) => {
   const [OfflineMode, setOfflineMode] = useState(false);
-
   return (
-    <offlinecontext.Provider value={{ OfflineMode, setOfflineMode }}>
+    <offlineContext.Provider value={{ OfflineMode, setOfflineMode }}>
       {children}
-    </offlinecontext.Provider>
+    </offlineContext.Provider>
   );
 };

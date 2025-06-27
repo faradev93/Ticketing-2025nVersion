@@ -6,12 +6,14 @@ import FormatDate from "./FormatDate";
 import TextLorem from "./TextLorem";
 import toast from "react-hot-toast";
 import { useAuth } from "../ContextProvider/AuthProvider";
+import { useOfflineMode } from "../ContextProvider/OffilneModeProvider";
 
 const TicketItemDescription = ({ onTicketReserved }) => {
   const { id } = useParams();
   const [loading, setLoading] = useState(false);
   const [ticket, setTicket] = useState(null);
   const { username } = useAuth();
+  const { OffilneMode, setOffilneMode } = useOfflineMode();
 
   const fetchTicket = async () => {
     try {
@@ -30,22 +32,26 @@ const TicketItemDescription = ({ onTicketReserved }) => {
   };
 
   const handleReserve = async () => {
-    const token = localStorage.getItem("token");
-    const response = await fetch(`http://test.joo.nz/ticket/${id}/reserve`, {
-      method: "POST",
-      headers: { authorization: `Bearer ${token}` },
-    });
-    const data = await response.json();
-    if (response.status === 200) {
-      console.log(data.message);
-      toast.success("Reserved");
+    if (OffilneMode) {
+      
     } else {
-      console.log(data.message);
-      toast.error(`Error / ${data.message} `, { duration: 5000 });
-    }
+      const token = localStorage.getItem("token");
+      const response = await fetch(`http://test.joo.nz/ticket/${id}/reserve`, {
+        method: "POST",
+        headers: { authorization: `Bearer ${token}` },
+      });
+      const data = await response.json();
+      if (response.status === 200) {
+        console.log(data.message);
+        toast.success("Reserved");
+      } else {
+        console.log(data.message);
+        toast.error(`Error / ${data.message} `, { duration: 5000 });
+      }
 
-    onTicketReserved();
-    fetchTicket();
+      onTicketReserved();
+      fetchTicket();
+    }
   };
 
   const alreadyReserve = ticket?.reservedBy?.includes(username);
